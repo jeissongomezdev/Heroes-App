@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getHeroById } from "../../selectors/getHeroById";
 
@@ -7,7 +7,7 @@ export const HeroScreen = () => {
 
   const navigate = useNavigate();
 
-  const hero = getHeroById(heroeId);
+  const hero = useMemo(() => getHeroById(heroeId), [heroeId]);
 
   const handleReturn = () => {
     navigate(-1);
@@ -31,9 +31,13 @@ export const HeroScreen = () => {
   return (
     <div className="row mt-5">
       <div className="col-4">
-        <img src={imagePath} alt={hero.superhero} className="img-thumbnail" />
+        <img
+          src={imagePath}
+          alt={hero.superhero}
+          className="img-thumbnail animate__animated animate__fadeInLeft"
+        />
       </div>
-      <div className="col8">
+      <div className="col8 animate__animated animate__fadeIn">
         <h3>{superhero}</h3>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
